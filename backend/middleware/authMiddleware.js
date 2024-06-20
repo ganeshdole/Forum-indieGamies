@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const authMiddleware = (req, res, next ) =>{
     try{
-    const skipAuthUrls  = ['/user/register']
+    const skipAuthUrls  = ['/user/register','/user/signin']
         if(skipAuthUrls.includes(req.url)){
             return next()
         }
@@ -12,7 +12,7 @@ const authMiddleware = (req, res, next ) =>{
             message : 'Token Missing',
         })
     }
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(token, process.env.JWT_SECRETE);
         if (!payload) {
             return res.status(401).json({
             message: 'Invalid token',

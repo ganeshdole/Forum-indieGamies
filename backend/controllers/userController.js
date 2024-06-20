@@ -27,9 +27,10 @@ const registerUser = async (req, res) => {
 };
 
 // Sign-in user 
-const signupUser = async (req, res) => {
+const signinUser = async (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log(email, password)
         const user = await userModel.findOne({ email });
 
         if (!user) {
@@ -43,13 +44,13 @@ const signupUser = async (req, res) => {
 
         const token = jwt.sign(
             { id: user._id, name: user.name, email: user.email },
-            process.env.JWT_SECRET
+            process.env.JWT_SECRETE
         );
 
         res.status(200).json(createSuccess({ message: 'User signed in successfully', token }));
     } catch (error) {
-        console.log('Error in signing-in user', error.message);
-        return res.status(500).json(createError('Error signing in user', error.message));
+        console.log('Error in signing-in user', error);
+        return res.status(500).json(createError('Signing in user', error.message));
     }
 };
 
@@ -71,20 +72,22 @@ const getUserById = async (req, res) => {
 // Update user by ID
 const updateUserById = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.user;
         const { firstName, lastName, email, password } = req.body;
 
         const updateField = {};
         if (firstName) updateField['name.firstName'] = firstName;
         if (lastName) updateField['name.lastName'] = lastName;
         if (email) updateField['email'] = email;
-        if (password) updateField['password'] = password;
-
+        if (password) {
+            const salt = await bcryptJs.genSalt(10)
+            const encryptedPassword  =  await bcryptJs.hash(password , salt)
+            updateField['password'] = encryptedPassword;  
+        }
         const updatedUser = await userModel.findByIdAndUpdate(id, updateField, { new: true });
         if (!updatedUser) {
             return res.status(404).json(createError('User not found'));
         }
-
         return res.status(200).json(createSuccess(updatedUser));
     } catch (error) {
         console.log('Error updating user', error.message);
@@ -95,7 +98,7 @@ const updateUserById = async (req, res) => {
 // Delete user by ID
 const deleteUserById = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.user;
         const deletedUser = await userModel.findByIdAndDelete(id);
         if (!deletedUser) {
             return res.status(404).json(createError('User does not exist'));
@@ -107,4 +110,4 @@ const deleteUserById = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, signupUser, getUserById, updateUserById, deleteUserById };
+module.exports = { registerUser, signinUser, getUserById, updateUserById, deleteUserById };

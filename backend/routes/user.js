@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser , updateUserById, deleteUserById} = require('../controllers/userController');
+const { registerUser , updateUserById, deleteUserById, signinUser} = require('../controllers/userController');
 
 router.post('/register', registerUser);
-router.delete("/deleteuser/:id", deleteUserById)
-router.post("/updatedetails/:id", updateUserById)
-
+router.post("/signin", signinUser );
+router.delete("/deleteuser", deleteUserById)
+router.patch("/updateuser", updateUserById)
 
 module.exports = router;
