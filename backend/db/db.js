@@ -2,10 +2,11 @@ const mongoose = require('mongoose')
 
 const connectDB = async () =>{
     try{
-        await mongoose.connect("mongodb://127.0.0.1:27017/forumIndieGamies")
+        await mongoose.connect(process.env.DB_URL)
         console.log("Database Connection Successful")
     }catch(error ){
         console.log('Database Connections Fail', error.message)
+        throw error;
     }
 }
 module.exports = connectDB;

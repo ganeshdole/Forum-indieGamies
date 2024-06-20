@@ -1,16 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const userModel = require('../db/models/User');
+const { registerUser , updateUserById, deleteUserById} = require('../controllers/userController');
 
-router.get('/', async (req, res) => {
-  try {
-    const users = await userModel.find();
-    console.log(users);
-    res.json(users); 
-  } catch (error) {
-    console.error('Error fetching users:', error);
-    res.status(500).json({ message: 'Error fetching users' });
-  }
-});
+router.post('/register', registerUser);
+router.delete("/deleteuser/:id", deleteUserById)
+router.post("/updatedetails/:id", updateUserById)
+
 
 module.exports = router;
