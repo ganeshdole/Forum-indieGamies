@@ -11,7 +11,7 @@ const app = express();
 
 
 
-const PORT = process.env.SERVER_PORT;
+const PORT = process.env.SERVER_PORT || 4000;
 
 
 app.use(express.json());
@@ -20,7 +20,6 @@ app.use(morgan('combined'));
 
 app.use(authMiddleware)
 app.use('/user', userRouter);
-
 
 
 
