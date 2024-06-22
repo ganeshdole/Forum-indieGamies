@@ -1,28 +1,24 @@
 import React from 'react';
 import Categories from '../components/Categories/Categories';
-import { MessageSquare } from 'lucide-react';
-import ThreadsList from '../components/Threads/threads';
+import ThreadsList from '../components/Threads/LatestThreads';
 
 const Home = () => {
     return (
         <>
-            <section className="bg-gradient-to-br from-indigo-600 to-purple-700 min-h-screen flex flex-col justify-center items-center p-8">
-                <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-3xl w-full transform hover:scale-105 transition-all duration-300">
-                    <h1 className="font-inter text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 text-center mb-6">
-                        IndieGamie Forum
+            <section className="bg-gradient-to-br from-indigo-800 to-purple-900 flex flex-col justify-center items-center p-8 min-h-[350px]">
+                <div className="max-w-3xl w-full text-center">
+                    <h1 className="font-serif text-5xl font-extrabold text-white uppercase">
+                        Welcome to Forum
                     </h1>
-                    <p className="font-inter text-2xl text-gray-600 text-center mb-10">
+                    <p className="font-serif text-2xl text-white mb-10">
                         Connect, discuss, and level up your gaming experience
                     </p>
-                    <div className="flex justify-center mb-10">
-                        <MessageSquare className="text-indigo-600" size={64} />
-                    </div>
-                    <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                        <button className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-inter font-semibold py-4 px-8 rounded-full transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
-                            Start a Discussion
+                    <div className="space-x-4">
+                        <button className="bg-blue-600 hover:bg-blue-700 text-white font-inter font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                            Join the Discussion
                         </button>
-                        <button className="bg-white text-indigo-600 font-inter font-semibold py-4 px-8 rounded-full border-2 border-indigo-600 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg hover:bg-indigo-50">
-                            Explore Topics
+                        <button className="bg-white hover:bg-gray-100 text-blue-600 font-inter font-semibold py-3 px-6 rounded-lg shadow-md border border-blue-600 transition duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+                            Browse Topics
                         </button>
                     </div>
                 </div>

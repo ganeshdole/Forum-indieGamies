@@ -3,12 +3,12 @@ import { Github, Twitter, Facebook, Instagram } from 'lucide-react';
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-900 text-gray-300 py-12">
+        <footer className="bg-gray-900 text-gray-400 py-12">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="space-y-4">
                         <h2 className="text-3xl font-bold text-white">IndieGamie</h2>
-                        <p className="text-gray-400">Connecting game developers worldwide.</p>
+                        <p>Connecting game developers worldwide.</p>
                         <div className="flex space-x-4">
                             <SocialIcon Icon={Github} href="https://github.com/indiegamie" />
                             <SocialIcon Icon={Twitter} href="https://twitter.com/indiegamie" />
@@ -27,16 +27,16 @@ const Footer = () => {
                     </div>
                     <div>
                         <h3 className="text-xl font-semibold mb-4 text-white">Newsletter</h3>
-                        <p className="text-gray-400 mb-4">Stay updated with the latest in indie game development.</p>
-                        <form className="flex">
+                        <p>Stay updated with the latest in indie game development.</p>
+                        <form className="flex mt-4">
                             <input
                                 type="email"
                                 placeholder="Enter your email"
-                                className="flex-grow px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                                className="flex-grow px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900"
                             />
                             <button
                                 type="submit"
-                                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-lg transition-colors duration-300"
+                                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-r-lg transition-colors duration-300"
                             >
                                 Subscribe
                             </button>

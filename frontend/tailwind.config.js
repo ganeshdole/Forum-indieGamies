@@ -8,7 +8,8 @@ export default {
     extend: {},
     fontFamily: {
       'magz' : 'magz',
-      'alegreya' : 'alegreya'
+      'alegreya' : 'alegreya',
+      'sans': ['Inter', 'sans-serif'],
     }
   },
   plugins: [],

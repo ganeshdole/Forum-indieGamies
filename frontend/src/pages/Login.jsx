@@ -2,18 +2,18 @@ import React from 'react';
 
 const Signin = () => {
     return (
-        <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-pink-100 p-4">
-            <section className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md">
-                <h2 className="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+        <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 p-4">
+            <section className="bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md">
+                <h2 className="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
                     Welcome Back
                 </h2>
                 <form className="space-y-6">
                     <div>
-                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email">
+                        <label className="block text-gray-300 text-sm font-semibold mb-2" htmlFor="email">
                             Email
                         </label>
                         <input
-                            className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition"
                             id="email"
                             type="email"
                             placeholder="Enter your email"
@@ -21,11 +21,11 @@ const Signin = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="password">
+                        <label className="block text-gray-300 text-sm font-semibold mb-2" htmlFor="password">
                             Password
                         </label>
                         <input
-                            className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition"
                             id="password"
                             type="password"
                             placeholder="Enter your password"
@@ -34,13 +34,13 @@ const Signin = () => {
                     </div>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center">
-                            <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded" />
-                            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                            <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-600 rounded" />
+                            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
                                 Remember me
                             </label>
                         </div>
                         <div className="text-sm">
-                            <a href="/forgot-password" className="font-medium text-purple-600 hover:text-purple-500">
+                            <a href="/forgot-password" className="font-medium text-purple-400 hover:text-purple-300">
                                 Forgot your password?
                             </a>
                         </div>
@@ -55,17 +55,17 @@ const Signin = () => {
                     </div>
                 </form>
                 <div className="mt-6 flex items-center justify-center">
-                    <span className="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
-                    <span className="flex-shrink mx-4 text-gray-600">or continue with</span>
-                    <span className="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
+                    <span className="bg-gray-600 h-px flex-grow t-2 relative top-2"></span>
+                    <span className="flex-shrink mx-4 text-gray-400">or continue with</span>
+                    <span className="bg-gray-600 h-px flex-grow t-2 relative top-2"></span>
                 </div>
                 <div className="mt-6 flex justify-center space-x-4">
-                    <button aria-label="Sign in with Facebook" className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-600 transition">
+                    <button aria-label="Sign in with Facebook" className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-700 transition">
                         <svg className="h-5 w-5 fill-current text-white" viewBox="0 0 24 24">
                             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                         </svg>
                     </button>
-                    <button aria-label="Sign in with Google" className="flex items-center justify-center w-10 h-10 rounded-full bg-red-500 hover:bg-red-600 transition">
+                    <button aria-label="Sign in with Google" className="flex items-center justify-center w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 transition">
                         <svg className="h-5 w-5 fill-current text-white" viewBox="0 0 24 24">
                             <path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z" />
                         </svg>
@@ -76,9 +76,9 @@ const Signin = () => {
                         </svg>
                     </button>
                 </div>
-                <p className="mt-8 text-center text-gray-600">
+                <p className="mt-8 text-center text-gray-400">
                     Don't have an account?{' '}
-                    <a href="/register" className="font-semibold text-purple-600 hover:text-purple-500 transition">
+                    <a href="/register" className="font-semibold text-purple-400 hover:text-purple-300 transition">
                         Sign up
                     </a>
                 </p>
