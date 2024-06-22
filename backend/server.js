@@ -7,6 +7,8 @@ const cors = require('cors');
 const connectDB = require("./db/db")
 const userRouter = require("./routes/user");
 const authMiddleware = require('./middleware/authMiddleware');
+const categoriesRouter = require('./routes/categories');
+const threadsRouter = require('./routes/threads');
 const app = express();
 
 
@@ -20,6 +22,8 @@ app.use(morgan('combined'));
 
 app.use(authMiddleware)
 app.use('/user', userRouter);
+app.use('/categories', categoriesRouter)
+app.use('/threads', threadsRouter);
 
 
 

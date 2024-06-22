@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const authMiddleware = (req, res, next ) =>{
     try{
-    const skipAuthUrls  = ['/user/register','/user/signin']
+    const skipAuthUrls  = ['/user/register','/user/signin', '/categories', '/threads']
         if(skipAuthUrls.includes(req.url)){
             return next()
         }

@@ -1,7 +1,7 @@
 function createSuccess(data)
 {
     return {
-        status: 'Success',
+        status: 'success',
         data
     }
 }
@@ -9,7 +9,7 @@ function createSuccess(data)
 
 function createError(error){
     return{
-        status :"Error",
+        status :"error",
         error: error
     }
 }
