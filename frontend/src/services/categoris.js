@@ -1,5 +1,5 @@
 import axios  from "axios";
-import { createError, createSuccess, createUrl } from "./utils";
+import { createError, createUrl } from "./utils";
 
 
 export async function getAllCategories(){
@@ -9,5 +9,16 @@ export async function getAllCategories(){
     }catch(error){
         console.log(error);
         return createError(error);
+    }
+}
+
+export async function getCategorie(id){
+    try{
+        console.log(id)
+        const result = await axios(createUrl('categorie'));
+        return result.data;
+    }catch(error){
+        console.log(error)
+        return createError(error)
     }
 }

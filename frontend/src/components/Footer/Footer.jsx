@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <footer className="bg-gray-900 text-gray-400 py-12">
             <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-2">
                     <div className="space-y-4">
                         <h2 className="text-3xl font-bold text-white">IndieGamie</h2>
                         <p>Connecting game developers worldwide.</p>
@@ -28,7 +28,7 @@ const Footer = () => {
                     <div>
                         <h3 className="text-xl font-semibold mb-4 text-white">Newsletter</h3>
                         <p>Stay updated with the latest in indie game development.</p>
-                        <form className="flex mt-4">
+                        <form className="flex mt-4 md:flex-col lg:flex-row">
                             <input
                                 type="email"
                                 placeholder="Enter your email"
@@ -36,7 +36,7 @@ const Footer = () => {
                             />
                             <button
                                 type="submit"
-                                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-r-lg transition-colors duration-300"
+                                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-r-lg transition-colors duration-300 "
                             >
                                 Subscribe
                             </button>

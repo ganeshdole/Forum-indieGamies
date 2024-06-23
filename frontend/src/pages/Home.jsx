@@ -1,5 +1,5 @@
 import React from 'react';
-import Categories from '../components/Categories/Categories';
+import CategoriesList from '../components/Categories/CategoriesList';
 import ThreadsList from '../components/Threads/LatestThreads';
 
 const Home = () => {
@@ -7,10 +7,14 @@ const Home = () => {
         <>
             <section className="bg-gradient-to-br from-indigo-800 to-purple-900 flex flex-col justify-center items-center p-8 min-h-[350px]">
                 <div className="max-w-3xl w-full text-center">
-                    <h1 className="font-serif text-5xl font-extrabold text-white uppercase">
+                    <h1 className="font-teko text-5xl font-extrabold text-white uppercase" style={
+                        { fontFamily: "Teko-Bold" }
+                    }>
                         Welcome to Forum
                     </h1>
-                    <p className="font-serif text-2xl text-white mb-10">
+                    <p className="font-teko text-xl text-white mb-10 uppercase" style={
+                        { fontFamily: "Teko-Medium" }
+                    }>
                         Connect, discuss, and level up your gaming experience
                     </p>
                     <div className="space-x-4">
@@ -23,7 +27,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            <Categories />
+            <CategoriesList />
             <ThreadsList />
         </>
     );

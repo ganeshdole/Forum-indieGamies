@@ -3,6 +3,7 @@ import Home from "../../pages/Home";
 import Register from "../../pages/Register";
 import Login from "../../pages/Login";
 import MainLayout from "../Layout/MainLayout";
+import Categories from "../../pages/Categories";
 
 
 const MainRoutes = () => {
@@ -13,6 +14,10 @@ const MainRoutes = () => {
       children: [
         { path: "/", element: <Home /> }
       ]
+    },
+    {
+      path: "/category/:categoryId",
+      element: < Categories />,
     },
     {
       path: "/register",

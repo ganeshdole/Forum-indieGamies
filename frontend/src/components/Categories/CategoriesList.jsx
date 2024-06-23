@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAllCategories } from '../../services/categoris';
 import { Loader } from 'lucide-react';
 
-const Categories = () => {
+const CategoriesList = () => {
     const [categories, setCategories] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -76,4 +76,4 @@ const Categories = () => {
     );
 };
 
-export default Categories;
+export default CategoriesList;
