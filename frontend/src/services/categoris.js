@@ -12,8 +12,9 @@ export async function getAllCategories(){
     }
 }
 
-export async function getCategorie(id){
+export async function getCategoryById(id){
     try{
+        console.log(id)
         const result = await axios(createUrl(`categories/${id}`));
         return result.data;
     }catch(error){
