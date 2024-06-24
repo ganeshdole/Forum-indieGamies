@@ -4,6 +4,8 @@ import Register from "../../pages/Register";
 import Login from "../../pages/Login";
 import MainLayout from "../Layout/MainLayout";
 import Categories from "../../pages/Categories";
+import Threads from "../../pages/Threads";
+import NotFound from "../../pages/NotFound";
 
 
 const MainRoutes = () => {
@@ -13,7 +15,9 @@ const MainRoutes = () => {
       element: <MainLayout />,
       children: [
         { path: "/", element: <Home /> },
-        { path: "/category/:categoryId", element: < Categories />, }
+        { path: "/category/:categoryId", element: < Categories />, },
+        { path: "/thread/:threadId", element: < Threads />, },
+        { path: "*", element: <NotFound /> }
       ]
     },
     {
