@@ -1,19 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getCategorie } from "../services/categoris"
-const Categories = () => {
-    const { categoryId } = useParams()
+import CategoriesPageHero from "../components/Categories/CategoriesPageHero";
+import CategoriesThread from "../components/Categories/CategoriesThread";
 
-    function fetchCategorie(id) {
-        getCategorie(id)
+const Categories = () => {
+    const { categoryId } = useParams();
+    const [category, setCategory] = useState({})
+
+    async function fetchCategorie(id) {
+        const category = await getCategorie(id)
+        if (category.status === "success") {
+            setCategory(category.data)
+        }
     }
 
     useEffect(() => {
         fetchCategorie(categoryId)
     }, [])
+    console.log(category)
+
     return (
         <div>
-            Hello From category({categoryId})
+            <CategoriesPageHero category={category} />
+            <CategoriesThread categoryId={category._id} />
         </div>
     )
 }

@@ -14,8 +14,7 @@ export async function getAllCategories(){
 
 export async function getCategorie(id){
     try{
-        console.log(id)
-        const result = await axios(createUrl('categorie'));
+        const result = await axios(createUrl(`categories/${id}`));
         return result.data;
     }catch(error){
         console.log(error)

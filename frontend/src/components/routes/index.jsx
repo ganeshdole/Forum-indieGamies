@@ -12,12 +12,9 @@ const MainRoutes = () => {
       path: "/",
       element: <MainLayout />,
       children: [
-        { path: "/", element: <Home /> }
+        { path: "/", element: <Home /> },
+        { path: "/category/:categoryId", element: < Categories />, }
       ]
-    },
-    {
-      path: "/category/:categoryId",
-      element: < Categories />,
     },
     {
       path: "/register",

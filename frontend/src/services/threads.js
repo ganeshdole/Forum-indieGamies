@@ -11,3 +11,13 @@ export async function getAllThreads(){
         return createError(error);
     }
 }
+
+export async function getThreadsBYCategory(categoryId){
+    try{
+        const result = await axios(createUrl(`threads/${categoryId}`))
+        return result.data
+    }catch(error){
+        console.log(error)
+        return createError(error);
+    }
+}
