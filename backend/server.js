@@ -28,19 +28,21 @@ app.use(helmet());
 app.use(compression());
 app.use(morgan('combined'));
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, 
-  max: 1000, 
-});
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000, 
+//   max: 1000, 
+// });
 
-app.use(limiter);
+// app.use(limiter);
 
+app.use((req, res, next)=>{
+  console.log(req.url,"\n")
+  next()
+})
 
 app.use('/user', userRouter);
 app.use('/categories', categoriesRouter)
 app.use('/threads', threadsRouter);
-
-app.use(authMiddleware)
 
 
 connectDB()

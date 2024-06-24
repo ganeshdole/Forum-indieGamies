@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const {getLatestThread} = require('../controllers/threadsController');
-const { model } = require('mongoose');
+const {getLatestThread , getThreadsByCategory, getThreadById} = require('../controllers/threadsController');
+
 
 router.get('/', getLatestThread);
+router.get("/:categoryId", getThreadsByCategory)
+router.get("/thread/:threadId", getThreadById)
 
 module.exports = router;    
