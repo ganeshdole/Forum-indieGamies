@@ -5,15 +5,19 @@ const jwt  = require('jsonwebtoken')
 // Register User
 const registerUser = async (req, res) => {
     try {
-        const { firstName, lastName, email, password } = req.body;
+       
+        const { username, email, password } = req.body;
+        const user = await userModel.findOne({ email });
+
+        if (user) {
+            return res.status(400).json(createError('User already exists'));
+        }
+
         const salt = await bcryptJs.genSalt(10);
         const encryptedPassword = await bcryptJs.hash(password, salt);
 
         const newUser = new userModel({
-            name: {
-                firstName,
-                lastName
-            },
+            username,
             email,
             password: encryptedPassword
         });
@@ -30,7 +34,7 @@ const registerUser = async (req, res) => {
 const signinUser = async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log(email, password)
+        console.log(req.body)
         const user = await userModel.findOne({ email });
 
         if (!user) {
@@ -43,7 +47,7 @@ const signinUser = async (req, res) => {
         }
 
         const token = jwt.sign(
-            { id: user._id, name: user.name, email: user.email },
+            { id: user._id, name: user.username, email: user.email },
             process.env.JWT_SECRETE
         );
 
