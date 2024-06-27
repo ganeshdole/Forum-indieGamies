@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getCategoryById } from "../services/categoris";
 import CategoriesPageHero from "../components/Categories/CategoriesPageHero";
 import CategoriesThread from "../components/Categories/CategoriesThread";
+import { Plus, RefreshCw } from 'lucide-react';
 
 const Categories = () => {
     const { categoryId } = useParams();
@@ -10,20 +11,20 @@ const Categories = () => {
     const [category, setCategory] = useState({});
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchCategorie = async () => {
-            try {
-                const result = await getCategoryById(categoryId);
-                if (result.status === "success") {
-                    setCategory(result.data);
-                }
-            } catch (error) {
-                console.error("Error fetching category:", error);
-            } finally {
-                setIsLoading(false);
+    const fetchCategorie = async () => {
+        try {
+            const result = await getCategoryById(categoryId);
+            if (result.status === "success") {
+                setCategory(result.data);
             }
-        };
+        } catch (error) {
+            console.error("Error fetching category:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
+    useEffect(() => {
         fetchCategorie();
     }, [categoryId]);
 
@@ -32,21 +33,36 @@ const Categories = () => {
         navigate('/threads/new');
     };
 
+    const handleRefresh = () => {
+        // Refresh the category data
+        setIsLoading(true);
+        fetchCategorie();
+    };
+
     if (isLoading) {
-        return <div className="flex justify-center items-center h-screen">Loading...</div>;
+        return <div className="flex justify-center items-center h-screen bg-gray-900 text-white">Loading...</div>;
     }
 
     return (
-        <section className="min-h-screen bg-gray-900" id="categories">
+        <section className="min-h-screen bg-gray-900 text-white" id="categories">
             <CategoriesPageHero category={category} />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="flex justify-between items-center mb-8">
-                    <h2 className="text-2xl font-bold text-white">{category.name}</h2>
-                    <button
-                        onClick={handleNewThread}
-                        className="bg-green-500 text-white text-sm px-4 py-2 rounded-md">
-                        New Thread
-                    </button>
+                    <h2 className="text-3xl font-bold">Recent Discussions</h2>
+                    <div className="flex space-x-2">
+                        <button
+                            onClick={handleRefresh}
+                            className="flex items-center bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded-md transition duration-300 ease-in-out">
+                            <RefreshCw className="w-4 h-4 mr-2" />
+                            Refresh
+                        </button>
+                        <button
+                            onClick={handleNewThread}
+                            className="flex items-center bg-green-500 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md transition duration-300 ease-in-out">
+                            <Plus className="w-4 h-4 mr-2" />
+                            New Thread
+                        </button>
+                    </div>
                 </div>
                 <CategoriesThread categoryId={categoryId} />
             </div>
