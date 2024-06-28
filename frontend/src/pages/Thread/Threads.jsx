@@ -11,9 +11,6 @@ const Threads = () => {
     const [loading, setLoading] = useState(true);
     const [replies, setReplies] = useState([]);
     const [error, setError] = useState(null);
-
-    console.log(replies);
-
     useEffect(() => {
         const fetchThreadData = async () => {
             try {
