@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getThreadById } from "../../services/threads";
 import { getCategoryById } from "../../services/categoris";
 import { getRepliesByThreadId } from "../../services/replies";
+import { createReply } from "../../services/replies";
 
 const Threads = () => {
+    const token = useSelector(state => state.authentication.token);
     const { threadId } = useParams();
     const [thread, setThread] = useState(null);
     const [category, setCategory] = useState(null);
     const [loading, setLoading] = useState(true);
     const [replies, setReplies] = useState([]);
     const [error, setError] = useState(null);
+    const [showReplyForm, setShowReplyForm] = useState(false);
+    const [replyContent, setReplyContent] = useState("");
+
     useEffect(() => {
         const fetchThreadData = async () => {
             try {
@@ -34,8 +40,25 @@ const Threads = () => {
         };
 
         fetchThreadData();
-        console.log(replies);
-    }, [threadId, replies.length]);
+    }, [threadId]);
+
+    const handleReplySubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const reply = {
+                threadId, content: replyContent
+            }
+            console.log(reply)
+            const newReply = await createReply(reply, token);
+            if (newReply.status == "success") {
+                setReplies([...replies, newReply.data]);
+                setReplyContent("");
+                setShowReplyForm(false);
+            }
+        } catch (err) {
+            setError("Failed to submit reply: " + err.message);
+        }
+    };
 
     if (loading) {
         return (
@@ -95,6 +118,38 @@ const Threads = () => {
                     </p>
                 </div>
 
+                {/* Reply Button */}
+                <div className="mb-8">
+                    <button
+                        onClick={() => setShowReplyForm(!showReplyForm)}
+                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                    >
+                        {showReplyForm ? "Cancel Reply" : "Reply to Thread"}
+                    </button>
+                </div>
+
+                {/* Reply Form */}
+                {showReplyForm && (
+                    <form onSubmit={handleReplySubmit} className="mb-8">
+                        <textarea
+                            value={replyContent}
+                            onChange={(e) => setReplyContent(e.target.value)}
+                            placeholder="Write your reply here..."
+                            className="w-full p-2 mb-4 bg-gray-700 text-white rounded"
+                            rows="4"
+                        />
+                        <button
+                            type="submit"
+                            className={`bg-green-500  text-white font-bold py-2 px-4 rounded ${token ? "cursor-pointer hover:bg-green-600" : "opacity-75 cursor-not-allowed "}`}
+                            disabled={!token}
+                            aria-disabled={!token}
+                        >
+                            Submit Reply
+                        </button>
+
+                    </form>
+                )}
+
                 {/* Replies */}
                 <div className="space-y-6">
                     <h2 className="text-2xl font-semibold mb-4">Replies</h2>
@@ -118,7 +173,7 @@ const Threads = () => {
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
