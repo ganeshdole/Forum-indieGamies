@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Send, X } from 'lucide-react';
+import { createThread } from '../../services/threads';
+import { useSelector } from 'react-redux';
+
 
 const categories = [
     {
@@ -26,15 +29,59 @@ const categories = [
 ];
 
 function PostThread() {
+    const token = useSelector((state) => state.authentication.token);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        if (!token) {
+            const timer = setTimeout(() => {
+                navigate('/login', { state: { from: '/post-thread' } });
+            }, 3000);
+            return () => clearTimeout(timer);
+        } else {
+            setIsLoading(false);
+        }
+    }, [token, navigate]);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('New thread:', { title, content, categoryId: selectedCategory });
+
+        const threadData = {
+            title,
+            description: content,
+            categoryId: selectedCategory
+        };
+
+        try {
+            setIsLoading(true);
+            const result = await createThread(threadData, token);
+            if (result.status === 'success') {
+                alert('Thread created successfully');
+                navigate(-1);
+            } else {
+                throw new Error('Failed to create thread');
+            }
+        } catch (error) {
+            console.error('Error creating thread:', error);
+            alert('Failed to create thread. Please try again.');
+        } finally {
+            setIsLoading(false);
+        }
     };
+
+    if (isLoading) {
+        return (
+            <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 flex items-center justify-center">
+                <div className="text-white text-xl">
+                    {!token ? "You're not logged in. Redirecting to login page..." : "Loading..."}
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
