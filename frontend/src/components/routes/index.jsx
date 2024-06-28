@@ -4,7 +4,7 @@ import Register from "../../pages/Register";
 import Login from "../../pages/Login";
 import MainLayout from "../Layout/MainLayout";
 import Categories from "../../pages/Categories";
-import Threads from "../../pages/Threads";
+import Threads from "../../pages/Thread/Threads";
 import NotFound from "../../pages/NotFound";
 
 
