@@ -30,11 +30,14 @@ export async function getThreadsBYCategory(categoryId){
 }
 
 
-export async function createThread(thread){
+export async function createThread(thread, token){
     try{
-        const result = await axios(createUrl('thread/new'),{
+        const headers = {
+                token
+        }
+        const result = await axios(createUrl('threads/thread/new'),{
             method:'POST',
-            data:thread
+            data:thread, headers
         })
         return result.data
     }
