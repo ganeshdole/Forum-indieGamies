@@ -28,3 +28,18 @@ export async function getThreadsBYCategory(categoryId){
         return createError(error);
     }
 }
+
+
+export async function createThread(thread){
+    try{
+        const result = await axios(createUrl('thread/new'),{
+            method:'POST',
+            data:thread
+        })
+        return result.data
+    }
+    catch(error){
+        console.log(error)
+        return createError(error);
+    }
+}

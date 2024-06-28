@@ -6,25 +6,21 @@ const categories = [
     {
         _id: '66752c0862d5484eb3093f99',
         name: 'General Discussion',
-        description: 'Talk about anything related to game development.',
         icon: '💬'
     },
     {
         _id: '66752c0862d5484eb3093f9a',
         name: 'Technical Help',
-        description: 'Get help with technical issues and programming.',
         icon: '🛠️'
     },
     {
         _id: '66752c0862d5484eb3093f9b',
         name: 'Art and Design',
-        description: 'Discuss art, design, and user experience.',
         icon: '🎨'
     },
     {
         _id: '66752c0862d5484eb3093f9c',
         name: 'Marketing and Business',
-        description: 'Share tips and strategies for marketing and business.',
         icon: '📊'
     }
 ];
@@ -38,8 +34,6 @@ function PostThread() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('New thread:', { title, content, categoryId: selectedCategory });
-        // After successful submission, navigate back to the threads list
-        // navigate('/categories/' + selectedCategory);
     };
 
     return (

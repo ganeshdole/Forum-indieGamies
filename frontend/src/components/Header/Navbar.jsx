@@ -16,7 +16,7 @@ const Navbar = () => {
     ];
 
     const renderNavLinks = (mobile = false) => (
-        <ul className={`${mobile ? 'flex flex-col space-y-4' : 'hidden lg:flex space-x-6 items-center'}`}>
+        <ul className={`${mobile ? 'flex flex-col space-y-4' : 'uythidden lg:flex space-x-6 items-center'}`}>
             {navItems.map((item) => (
                 <li key={item.to}>
                     <Link
@@ -73,8 +73,11 @@ const Navbar = () => {
         <nav className="bg-gray-800 shadow-lg top-0 z-50 sticky w-full">
             <div className="container mx-auto px-4 py-3">
                 <div className="flex justify-between items-center">
-                    <Link to="/" className="text-3xl  font-magz font-bold text-white bg-indigo-600 px-3 py-1 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300">
-                        IndieGamie
+                    <Link to="/" className="text-3xl  font-bold text-white bg-indigo-600 px-3 py-1 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
+                        style={
+                            { fontFamily: "Teko-Bold" }
+                        }>
+                        IndieGamie's
                     </Link>
                     {renderNavLinks()}
                     <button

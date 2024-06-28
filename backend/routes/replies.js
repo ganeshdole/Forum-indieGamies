@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-//getReplies, getReplyById, , updateReply, deleteReply
-const { getRepliesByThreadId } = require('../controllers/repliesController');
+const { getRepliesByThreadId, postReply } = require('../controllers/repliesController');
 
 
 router.get('/:threadId', getRepliesByThreadId);
+router.post('/new', postReply);
 
 module.exports = router;

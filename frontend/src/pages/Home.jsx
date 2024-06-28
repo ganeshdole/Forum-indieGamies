@@ -13,7 +13,7 @@ const Home = () => {
                     <h1 className="font-teko text-5xl font-extrabold text-white uppercase" style={
                         { fontFamily: "Teko-Bold" }
                     }>
-                        Welcome to Forum
+                        Welcome to IndieGamie's
                     </h1>
                     <p className="font-teko text-xl text-white mb-10 uppercase" style={
                         { fontFamily: "Teko-Medium" }

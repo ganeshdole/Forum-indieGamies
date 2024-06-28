@@ -7,7 +7,7 @@ const repliesSchema = new mongoose.Schema({
         ref : 'threads'
     },
     author :{
-        type : mongoose.Schema.Types.ObjectId,
+        type : String,
         required : true,
         ref : 'users'
     },
@@ -18,7 +18,7 @@ const repliesSchema = new mongoose.Schema({
     },
     date :{
         type : Date,
-        default : Date.now
+        default : new Date()
     },
     upvotes :{
         type : Number,

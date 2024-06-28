@@ -33,7 +33,7 @@ const Register = () => {
     return (
         <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 p-4 relative">
             <button
-                onClick={() => navigate("/")}
+                onClick={() => navigate(-1)}
                 className="absolute top-4 left-4 flex items-center text-gray-300 hover:text-white transition-colors duration-200"
             >
                 <ArrowLeft className="mr-2" size={20} />
