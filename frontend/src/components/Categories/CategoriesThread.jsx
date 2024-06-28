@@ -41,7 +41,6 @@ const CategoriesThread = ({ categoryId }) => {
 
     return (
         <div className="space-y-8">
-            <h2 className="text-3xl font-bold text-white mb-8">Recent Discussions</h2>
             {threads.length === 0 ? (
                 <p className="text-gray-400 text-lg">No threads found in this category.</p>
             ) : (

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getThreadById } from "../../services/threads";
-import { getCategoryById } from "../../services/categoris";
+import { getThreadById } from "../../../services/threads";
+import { getCategoryById } from "../../../services/categoris";
+
 import { getRepliesByThreadId } from "../../services/replies";
 
 const Threads = () => {
