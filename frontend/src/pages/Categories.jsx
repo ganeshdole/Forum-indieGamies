@@ -30,7 +30,7 @@ const Categories = () => {
 
     const handleNewThread = () => {
         // Navigate to the new thread creation page
-        navigate('/threads/new');
+        navigate('/thread/new');
     };
 
     const handleRefresh = () => {

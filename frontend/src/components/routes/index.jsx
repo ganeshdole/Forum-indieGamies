@@ -4,9 +4,9 @@ import Register from "../../pages/Register";
 import Login from "../../pages/Login";
 import MainLayout from "../Layout/MainLayout";
 import Categories from "../../pages/Categories";
-import Threads from "../../pages/Threads";
+import Threads from "../../pages/Thread/Threads";
 import NotFound from "../../pages/NotFound";
-
+import PostThread from "../../pages/Thread/PostThread"; // Import PostThread
 
 const MainRoutes = () => {
   const routes = useRoutes([
@@ -15,10 +15,16 @@ const MainRoutes = () => {
       element: <MainLayout />,
       children: [
         { path: "/", element: <Home /> },
-        { path: "/category/:categoryId", element: < Categories />, },
-        { path: "/thread/:threadId", element: < Threads />, },
-        { path: "*", element: <NotFound /> }
-      ]
+        { path: "category/:categoryId", element: <Categories /> },
+        {
+          path: "thread",
+          children: [
+            { path: ":threadId", element: <Threads /> }, // Remove leading slash
+            { path: "new", element: <PostThread /> }, // Remove leading slash
+          ],
+        },
+        { path: "*", element: <NotFound /> },
+      ],
     },
     {
       path: "/register",

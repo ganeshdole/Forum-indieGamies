@@ -25,6 +25,7 @@ const CategoriesList = () => {
         setIsLoading(false);
     }
 
+
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-64">
