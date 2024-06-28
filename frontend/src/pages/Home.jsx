@@ -2,9 +2,11 @@ import React from 'react';
 import CategoriesList from '../components/Categories/CategoriesList';
 import ThreadsList from '../components/Threads/LatestThreads';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const Home = () => {
+    const token = useSelector(state => state.authentication.token)
     const navigate = useNavigate();
     return (
         <>
@@ -20,7 +22,7 @@ const Home = () => {
                     }>
                         Connect, discuss, and level up your gaming experience
                     </p>
-                    <div className="space-x-4">
+                    {!token && <div className="space-x-4">
                         <button className="bg-blue-600 hover:bg-blue-700 text-white font-inter font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50" onClick={() => {
                             navigate("/register")
                         }}>
@@ -30,10 +32,10 @@ const Home = () => {
                             onClick={() => {
                                 navigate("#categories")
                             }}
-                        >
+                        > 
                             Browse Topics
                         </button> */}
-                    </div>
+                    </div>}
                 </div>
             </section>
             <CategoriesList />
