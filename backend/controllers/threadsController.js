@@ -4,6 +4,7 @@ const { createSuccess, createError } = require('../utils/utils')
 
 const getLatestThread = async (req, res) => {
     try {
+        
         const threads = await threadsModel.find();
         if(threads.length === 0){
             res.status(500).json(createError('Error getting threads', error.message));
@@ -60,25 +61,22 @@ const getThreadsByCategory = async (req, res) => {
 
 const postNewThread = async (req, res) =>{
     try {
-       
-        const { title, description, category} = req.body;
+        const { title, description, categoryId} = req.body;
         const author = req.user.username;
-        console.log(req.user.username)
-        if (!title || !description || !category) {
+        if (!title || !description || !categoryId) {
             return res.status(400).json({ message: 'Title, content, and category are required' });
         }
+
         const newThread = new threadsModel({
             title,
             description,
-            category,
+            category: categoryId,
             author,
             replies : 0,
             views : 0,
         });
-        console.log(newThread)   
-
         const thread = await newThread.save();
-        return res.status(200).json(thread);
+        return res.status(200).json(createSuccess(thread));
         }catch(error){
             console.error('Error creating thread:', error.message);
             return res.status(500).json({ message: 'Error creating thread', error: error.message });
