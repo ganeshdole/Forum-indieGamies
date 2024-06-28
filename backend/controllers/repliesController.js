@@ -36,8 +36,6 @@ const getRepliesByUserId = async (req, res) => {
 
 const postReply = async (req, res) => {
     try{
-        console.log("posting reply")
-        console.log(req.body)
         const { threadId, content } = req.body;
         const {username } = req.user;
         console.log(threadId, content, username)
