@@ -47,10 +47,11 @@ app.use((req, res, next)=>{
   next()
 })
 
+app.use(authMiddleware)
 app.use('/user', userRouter);
 app.use('/categories', categoriesRouter)
 app.use('/threads', threadsRouter);
-app.use('/replies',repliesRouter);
+app.use('/replies', repliesRouter);
 
 connectDB()
   .then(()=>{

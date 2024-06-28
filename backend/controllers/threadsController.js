@@ -52,12 +52,39 @@ const getThreadsByCategory = async (req, res) => {
         // Send the threads in the response
         return res.status(200).json(threads);
     } catch (error) {
-        // Log the error and send a 500 response
         console.error('Error getting threads:', error);
         return res.status(500).json({ message: 'Error getting threads', error: error.message });
     }
 };
 
+
+const postNewThread = async (req, res) =>{
+    try {
+       
+        const { title, description, category} = req.body;
+        const author = req.user.username;
+        console.log(req.user.username)
+        if (!title || !description || !category) {
+            return res.status(400).json({ message: 'Title, content, and category are required' });
+        }
+        const newThread = new threadsModel({
+            title,
+            description,
+            category,
+            author,
+            replies : 0,
+            views : 0,
+        });
+        console.log(newThread)   
+
+        const thread = await newThread.save();
+        return res.status(200).json(thread);
+        }catch(error){
+            console.error('Error creating thread:', error.message);
+            return res.status(500).json({ message: 'Error creating thread', error: error.message });
+        }
+}
+
 module.exports = {
-    getLatestThread, getThreadsByCategory,getThreadById
+    getLatestThread, getThreadsByCategory,getThreadById, postNewThread
 }

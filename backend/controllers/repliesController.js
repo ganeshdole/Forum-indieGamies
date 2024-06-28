@@ -37,7 +37,30 @@ const getRepliesByUserId = async (req, res) => {
     }
 }
 
+
+const postReply = async (req, res) => {
+    try{
+        console.log("posting reply")
+        const { threadId, content } = req.body;
+        const {username } = req.user;
+        if(!threadId || !content){
+            return res.status(400).json(createError('Thread ID and content are required'));
+        }
+        const reply = new repliesModel({
+                                            threadId,
+                                            author: username,
+                                            content })
+
+        const newReply = await reply.save();
+        return res.status(201).json(createSuccess(newReply));
+    }
+    catch(error){
+        console.error('Error posting reply:', error);
+        return res.status(500).json(createError('Error posting reply', error.message));
+    }
+}
 module.exports = {
     getRepliesByThreadId,
-    getRepliesByUserId
+    getRepliesByUserId,
+    postReply
 }

@@ -2,8 +2,9 @@ const jwt = require('jsonwebtoken')
 
 const authMiddleware = (req, res, next ) =>{
     try{
-    const skipAuthUrls  = ['/user/register','/user/signin', '/categories/byid','/categories', '/threads']
-        if(skipAuthUrls.includes(req.url)){
+    const AuthUrls  = ['/threads/thread/new', '/replies/new']
+        if(!AuthUrls.includes(req.url)){
+            console.log("No Auth Required")
             return next()
         }
     const token  = req.headers['token'];
