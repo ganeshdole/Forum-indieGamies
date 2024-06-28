@@ -16,7 +16,7 @@ const Navbar = () => {
     ];
 
     const renderNavLinks = (mobile = false) => (
-        <ul className={`${mobile ? 'flex flex-col space-y-4' : 'uythidden lg:flex space-x-6 items-center'}`}>
+        <ul className={`${mobile ? 'flex flex-col space-y-4' : 'hidden lg:flex space-x-6 items-center'}`}>
             {navItems.map((item) => (
                 <li key={item.to}>
                     <Link
