@@ -35,8 +35,8 @@ const LatestThreads = () => {
     }
 
     return (
-        <section className="bg-gray-900 py-16 px-4">
-            <div className="container mx-auto">
+        <section className="bg-gray-900 py-16 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
                 <h2 className="text-3xl font-semibold text-white mb-8">Recent Discussions</h2>
                 <div className="bg-gray-800 shadow-lg rounded-lg overflow-hidden">
                     {threads.map((thread, index) => (
@@ -47,7 +47,5 @@ const LatestThreads = () => {
         </section>
     );
 };
-
-
 
 export default LatestThreads;

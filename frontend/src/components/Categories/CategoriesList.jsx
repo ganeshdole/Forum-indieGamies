@@ -25,7 +25,6 @@ const CategoriesList = () => {
         setIsLoading(false);
     }
 
-
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-64">
@@ -35,9 +34,9 @@ const CategoriesList = () => {
     }
 
     return (
-        <section className="bg-gray-900 py-16 px-4 sm:px-6 lg:px-8">
+        <section className="bg-gray-900 py-16 px-4 sm:px-6 lg:px-8 mb-16">
             <div className="max-w-7xl mx-auto">
-                <h2 className="text-4xl font-inter font-bold text-white mb-6 font-sans ">
+                <h2 className="text-4xl font-inter font-bold text-white mb-6 font-sans">
                     Explore Our Forums
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

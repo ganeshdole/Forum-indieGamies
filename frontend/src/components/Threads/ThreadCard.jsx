@@ -1,3 +1,4 @@
+import React from 'react';
 import { MessageSquare, Eye } from 'lucide-react';
 
 const ThreadCard = ({ thread, isLast }) => {
