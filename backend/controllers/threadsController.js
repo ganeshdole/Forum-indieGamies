@@ -4,11 +4,14 @@ const { createSuccess, createError } = require('../utils/utils')
 
 const getLatestThread = async (req, res) => {
     try {
-        
-        const threads = await threadsModel.find();
-        if(threads.length === 0){
-            res.status(500).json(createError('Error getting threads', error.message));
+        const threads = await threadsModel.find()
+            .sort({ createdAt: -1 }) 
+            .limit(10); 
+
+        if (threads.length === 0) {
+            return res.status(404).json(createError('No threads found'));
         }
+        
         res.status(200).json(createSuccess(threads));
     } catch (error) {
         console.error('Error getting threads:', error.message);

@@ -6,7 +6,7 @@ const { createSuccess, createError } = require('../utils/utils')
  const getRepliesByThreadId = async (req, res) => {
     try {
         const threadId = req.params.threadId;
-        const replies = await repliesModel.find({ threadId: threadId });
+        const replies = await repliesModel.find({ threadId: threadId }).sort({ createdAt: -1 });
         if (!replies) {
             return res.status(404).json(createError('No replies found for this thread'));
         }
