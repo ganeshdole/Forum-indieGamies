@@ -41,7 +41,7 @@ const Signin = () => {
                             Email
                         </label>
                         <input
-                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition text-white"
                             id="email"
                             type="email"
                             placeholder="Enter your email"
@@ -54,7 +54,7 @@ const Signin = () => {
                             Password
                         </label>
                         <input
-                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition text-white"
                             id="password"
                             type="password"
                             placeholder="Enter your password"

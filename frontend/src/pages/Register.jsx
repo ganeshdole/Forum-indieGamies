@@ -47,7 +47,7 @@ const Register = () => {
                             Username
                         </label>
                         <input
-                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition text-white"
                             id="username"
                             type="text"
                             placeholder="Choose a username"
@@ -60,7 +60,7 @@ const Register = () => {
                             Email
                         </label>
                         <input
-                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition text-white"
                             id="email"
                             type="email"
                             placeholder="Enter your email"
@@ -73,7 +73,7 @@ const Register = () => {
                             Password
                         </label>
                         <input
-                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition text-white"
                             id="password"
                             type="password"
                             placeholder="Create a password"
@@ -86,7 +86,7 @@ const Register = () => {
                             Confirm Password
                         </label>
                         <input
-                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition text-white"
                             id="confirmPassword"
                             type="password"
                             placeholder="Confirm your password"
