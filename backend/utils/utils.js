@@ -1,3 +1,9 @@
+const crypto = require('crypto');
+
+function  otpGenerator(){
+    return crypto.randomBytes(3).toString('hex').toUpperCase();
+}
+
 function createSuccess(data)
 {
     return {
@@ -15,5 +21,5 @@ function createError(error){
 }
 
 module.exports = {
-    createError, createSuccess
+    createError, createSuccess, otpGenerator
 }
