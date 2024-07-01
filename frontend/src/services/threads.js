@@ -60,3 +60,4 @@ export async function increaseThreadView(threadId, views){
         return createError(error);
     }
 }
+

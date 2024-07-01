@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getThreadById, increaseThreadView } from "../../services/threads";
 import { getCategoryById } from "../../services/categories";
 import { getRepliesByThreadId, createReply } from "../../services/replies";
+
 const Threads = () => {
     const token = useSelector(state => state.authentication.token);
     const { threadId } = useParams();
@@ -11,6 +12,7 @@ const Threads = () => {
     const [category, setCategory] = useState(null);
     const [loading, setLoading] = useState(true);
     const [replies, setReplies] = useState([]);
+    const [repliesCount, setRepliesCount] = useState(0);
     const [error, setError] = useState(null);
     const [showReplyForm, setShowReplyForm] = useState(false);
     const [replyContent, setReplyContent] = useState("");
@@ -21,13 +23,13 @@ const Threads = () => {
             setLoading(true);
             const threadResult = await getThreadById(threadId);
             setThread(threadResult);
-
             if (threadResult && threadResult.category) {
                 const categoryResult = await getCategoryById(threadResult.category);
                 setCategory(categoryResult.data);
             }
             const repliesResult = await getRepliesByThreadId(threadId);
             setReplies(repliesResult.data);
+            setRepliesCount(repliesResult.data.length);
         } catch (err) {
             setError(err.message);
         } finally {
@@ -65,7 +67,8 @@ const Threads = () => {
             };
             const newReply = await createReply(reply, token);
             if (newReply.status === "success") {
-                setReplies([...replies, newReply.data]);
+                setReplies(prevReplies => [...prevReplies, newReply.data]);
+                setRepliesCount(prevCount => prevCount + 1);
                 setReplyContent("");
                 setShowReplyForm(false);
             }
@@ -119,7 +122,7 @@ const Threads = () => {
                         <span className="mx-2">•</span>
                         <span>{thread.views} views</span>
                         <span className="mx-2">•</span>
-                        <span>{thread.replies} replies</span>
+                        <span>{repliesCount} replies</span>
                     </div>
                 </div>
             </div>
@@ -165,7 +168,7 @@ const Threads = () => {
 
                 {/* Replies */}
                 <div className="space-y-6">
-                    <h2 className="text-2xl font-semibold mb-4">Replies</h2>
+                    <h2 className="text-2xl font-semibold mb-4">Replies:</h2>
                     {replies.length > 0 ? (
                         replies.map(reply => (
                             <div key={reply._id} className="bg-gray-800 rounded-lg p-6">
