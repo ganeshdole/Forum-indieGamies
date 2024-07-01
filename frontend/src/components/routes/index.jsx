@@ -6,7 +6,9 @@ import MainLayout from "../Layout/MainLayout";
 import Categories from "../../pages/Categories";
 import Threads from "../../pages/Thread/Threads";
 import NotFound from "../../pages/NotFound";
-import PostThread from "../../pages/Thread/PostThread"; // Import PostThread
+import PostThread from "../../pages/Thread/PostThread";
+import About from "../../pages/About";
+import Contact from "../../pages/Contact";
 
 const MainRoutes = () => {
   const routes = useRoutes([
@@ -16,6 +18,8 @@ const MainRoutes = () => {
       children: [
         { path: "/", element: <Home /> },
         { path: "category/:categoryId", element: <Categories /> },
+        { path: "/about", element: <About /> },
+        { path: "/contact", element: <Contact /> },
         {
           path: "thread",
           children: [
