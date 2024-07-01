@@ -27,6 +27,8 @@ const threadsSchema = new mongoose.Schema({
         type: String,
         default: '' // default empty description
     }
+},{
+    timestamps: true 
 });
 
 const threadsModel = mongoose.model('threads', threadsSchema);

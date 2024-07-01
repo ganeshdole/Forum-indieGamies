@@ -7,10 +7,16 @@ const registerUser = async (req, res) => {
     try {
        
         const { username, email, password } = req.body;
-        const user = await userModel.findOne({ email });
+        let user = await userModel.findOne({ username });
 
         if (user) {
-            return res.status(400).json(createError('User already exists'));
+            return res.json(createError('Username already exists'));
+        }
+
+        user = await userModel.findOne({ email });
+        
+        if (user) {
+            return res.json(createError('Email already exists'));
         }
 
         const salt = await bcryptJs.genSalt(10);
@@ -38,7 +44,8 @@ const signinUser = async (req, res) => {
         const user = await userModel.findOne({ email });
 
         if (!user) {
-            return res.status(400).json(createError('User not found'));
+            console.log('User not found');
+            return res.json(createError('User not found'));
         }
 
         const isMatch = await bcryptJs.compare(password, user.password);

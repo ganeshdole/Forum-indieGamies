@@ -86,6 +86,26 @@ const postNewThread = async (req, res) =>{
         }
 }
 
+
+const updateThreadById = async (req, res) =>{
+    try{
+        const threadId = req.params.threadId;
+        if (!threadId) {
+            return res.status(400).json({ message: 'Thread ID is required' });
+        }
+        console.log(req.body)
+        const {views } = req.body;
+        const thread = await threadsModel.findByIdAndUpdate(threadId, {views}, {new: true});
+        if (!thread) {
+            return res.status(404).json({ message: 'No thread found' });
+        }
+        return res.status(200).json(thread);
+    }catch(error){
+        console.error('Error updating thread:', error.message);
+        return res.status(500).json({ message: 'Error updating thread', error: error.message });
+    }
+}
+
 module.exports = {
-    getLatestThread, getThreadsByCategory,getThreadById, postNewThread
+    getLatestThread, getThreadsByCategory,getThreadById, postNewThread, updateThreadById
 }

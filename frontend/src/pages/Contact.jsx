@@ -67,7 +67,7 @@ const Contact = () => {
                     <div className="flex justify-end">
                         <button
                             type="submit"
-                            className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold px-6 py-3 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+                            className="flex items-center bg-green-500 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md transition duration-300 ease-in-out"
                         >
                             Send Message
                         </button>

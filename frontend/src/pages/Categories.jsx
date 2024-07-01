@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getCategoryById } from "../services/categoris";
+import { getCategoryById } from "../services/categories";
 import CategoriesPageHero from "../components/Categories/CategoriesPageHero";
 import CategoriesThread from "../components/Categories/CategoriesThread";
 import { Plus, RefreshCw } from 'lucide-react';
@@ -47,7 +47,7 @@ const Categories = () => {
         <section className="min-h-screen bg-gray-900 text-white" id="categories">
             <CategoriesPageHero category={category} />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div className="flex justify-between items-center mb-8">
+                <div className="flex justify-between items-center mb-8 flex-col sm:flex-row">
                     <h2 className="text-3xl font-bold">Recent Discussions</h2>
                     <div className="flex space-x-2">
                         <button

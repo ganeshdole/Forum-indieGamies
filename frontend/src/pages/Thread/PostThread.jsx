@@ -40,7 +40,7 @@ function PostThread() {
         if (!token) {
             const timer = setTimeout(() => {
                 navigate('/login', { state: { from: '/post-thread' } });
-            }, 3000);
+            }, 1000);
             return () => clearTimeout(timer);
         } else {
             setIsLoading(false);

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getThreadById } from "../../services/threads";
-import { getCategoryById } from "../../services/categoris";
-import { getRepliesByThreadId } from "../../services/replies";
-import { createReply } from "../../services/replies";
-
+import { getThreadById, increaseThreadView } from "../../services/threads";
+import { getCategoryById } from "../../services/categories";
+import { getRepliesByThreadId, createReply } from "../../services/replies";
 const Threads = () => {
     const token = useSelector(state => state.authentication.token);
     const { threadId } = useParams();
@@ -16,41 +14,57 @@ const Threads = () => {
     const [error, setError] = useState(null);
     const [showReplyForm, setShowReplyForm] = useState(false);
     const [replyContent, setReplyContent] = useState("");
+    const [viewCounted, setViewCounted] = useState(false);
+
+    const fetchThreadData = useCallback(async () => {
+        try {
+            setLoading(true);
+            const threadResult = await getThreadById(threadId);
+            setThread(threadResult);
+
+            if (threadResult && threadResult.category) {
+                const categoryResult = await getCategoryById(threadResult.category);
+                setCategory(categoryResult.data);
+            }
+            const repliesResult = await getRepliesByThreadId(threadId);
+            setReplies(repliesResult.data);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }, [threadId]);
 
     useEffect(() => {
-        const fetchThreadData = async () => {
-            try {
-                setLoading(true);
-
-                const threadResult = await getThreadById(threadId);
-                setThread(threadResult);
-
-                if (threadResult && threadResult.category) {
-                    const categoryResult = await getCategoryById(threadResult.category);
-                    setCategory(categoryResult.data);
-                }
-
-                const repliesResult = await getRepliesByThreadId(threadId);
-                setReplies(repliesResult.data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchThreadData();
-    }, [threadId]);
+    }, [fetchThreadData]);
+
+    const increaseView = useCallback(async () => {
+        if (!thread || viewCounted) return;
+
+        try {
+            const views = thread.views + 1;
+            const updatedThread = await increaseThreadView(threadId, views);
+            setThread(prevThread => ({ ...prevThread, views: updatedThread.views }));
+            setViewCounted(true);
+        } catch (error) {
+            console.error("Error updating view count:", error);
+        }
+    }, [thread, threadId, viewCounted]);
+
+    useEffect(() => {
+        increaseView();
+    }, [increaseView]);
 
     const handleReplySubmit = async (e) => {
         e.preventDefault();
         try {
             const reply = {
-                threadId, content: replyContent
-            }
-            console.log(reply)
+                threadId,
+                content: replyContent
+            };
             const newReply = await createReply(reply, token);
-            if (newReply.status == "success") {
+            if (newReply.status === "success") {
                 setReplies([...replies, newReply.data]);
                 setReplyContent("");
                 setShowReplyForm(false);
@@ -98,7 +112,7 @@ const Threads = () => {
                                 {category.name}
                             </span>
                         )}
-                        <h1 className="text-3xl sm:text-4xl font-bold">{thread.title}</h1>
+                        <h1 className="text-xl sm:text-2xl font-bold">{thread.title}</h1>
                     </div>
                     <div className="flex items-center text-sm text-gray-400">
                         <span>Posted by {thread.author}</span>
@@ -140,13 +154,12 @@ const Threads = () => {
                         />
                         <button
                             type="submit"
-                            className={`bg-green-500  text-white font-bold py-2 px-4 rounded ${token ? "cursor-pointer hover:bg-green-600" : "opacity-75 cursor-not-allowed "}`}
+                            className={`bg-green-500 text-white font-bold py-2 px-4 rounded ${token ? "cursor-pointer hover:bg-green-600" : "opacity-75 cursor-not-allowed"}`}
                             disabled={!token}
                             aria-disabled={!token}
                         >
                             Submit Reply
                         </button>
-
                     </form>
                 )}
 
@@ -173,7 +186,7 @@ const Threads = () => {
                     )}
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 

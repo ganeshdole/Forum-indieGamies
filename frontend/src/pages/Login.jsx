@@ -18,7 +18,9 @@ const Signin = () => {
         if (user.status === "success") {
             alert("User signed in successfully");
             dispatch(addToken(user.data.token));
-            navigate(-1);
+            navigate("/");
+        } else {
+            alert(user.error);
         }
     }
 

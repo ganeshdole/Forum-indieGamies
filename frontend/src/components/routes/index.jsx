@@ -18,8 +18,8 @@ const MainRoutes = () => {
       children: [
         { path: "/", element: <Home /> },
         { path: "category/:categoryId", element: <Categories /> },
-        { path: "/about", element: <About /> },
-        { path: "/contact", element: <Contact /> },
+        { path: "about", element: <About /> },
+        { path: "contact", element: <Contact /> },
         {
           path: "thread",
           children: [

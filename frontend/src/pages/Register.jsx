@@ -27,7 +27,10 @@ const Register = () => {
         if (newUser.status === "success") {
             alert("User created successfully");
             navigate("/login")
+        } else {
+            alert(newUser.error);
         }
+
     }
 
     return (
