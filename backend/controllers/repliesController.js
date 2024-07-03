@@ -6,6 +6,7 @@ const { createSuccess, createError } = require('../utils/utils')
  const getRepliesByThreadId = async (req, res) => {
     try {
         const threadId = req.params.threadId;
+        console.log(threadId)
         const replies = await repliesModel.find({ threadId: threadId }).sort({ createdAt: -1 });
         if (!replies) {
             return res.status(404).json(createError('No replies found for this thread'));
@@ -55,8 +56,26 @@ const postReply = async (req, res) => {
         return res.status(500).json(createError('Error posting reply', error.message));
     }
 }
+
+
+const deleteReply = async (req, res)  =>{
+    try{
+        const replyId = req.params.replyId;
+        const reply = await repliesModel.findById(replyId);
+        if(!reply){
+            return res.status(404).json(createError('Reply not found'));
+        }
+        await repliesModel.findByIdAndDelete(replyId);
+        return res.status(200).json(createSuccess('Reply deleted'));
+    }catch(error){
+        console.error('Error deleting reply:', error);
+        return res.status(500).json(createError('Error deleting reply', error.message));
+    }
+
+}
+
 module.exports = {
     getRepliesByThreadId,
     getRepliesByUserId,
-    postReply
+    postReply, deleteReply
 }

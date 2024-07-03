@@ -46,7 +46,7 @@ app.use((req, res, next)=>{
   console.log(req.url,"\n")
   next()
 })
-
+app.use(express.static('public'))
 app.use(authMiddleware)
 app.use('/user', userRouter);
 app.use('/categories', categoriesRouter)
