@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getThreadById, increaseThreadView } from "../../services/threads";
+import { getThreadById, updateThread } from "../../services/threads";
 import { getCategoryById } from "../../services/categories";
 import { getRepliesByThreadId, createReply } from "../../services/replies";
 
@@ -12,65 +12,63 @@ const Threads = () => {
     const [category, setCategory] = useState(null);
     const [loading, setLoading] = useState(true);
     const [replies, setReplies] = useState([]);
-    const [repliesCount, setRepliesCount] = useState(0);
     const [error, setError] = useState(null);
     const [showReplyForm, setShowReplyForm] = useState(false);
     const [replyContent, setReplyContent] = useState("");
-    const [viewCounted, setViewCounted] = useState(false);
 
-    const fetchThreadData = useCallback(async () => {
+    const fetchThreadData = async () => {
         try {
             setLoading(true);
             const threadResult = await getThreadById(threadId);
             setThread(threadResult);
-            if (threadResult && threadResult.category) {
+
+            if (threadResult?.category) {
                 const categoryResult = await getCategoryById(threadResult.category);
                 setCategory(categoryResult.data);
             }
+
             const repliesResult = await getRepliesByThreadId(threadId);
             setReplies(repliesResult.data);
-            setRepliesCount(repliesResult.data.length);
+
+            await updateThread(threadId, {
+                ...threadResult,
+                views: (threadResult.views || 0) + 1,
+                replies: repliesResult.data.length
+            });
         } catch (err) {
             setError(err.message);
         } finally {
             setLoading(false);
         }
-    }, [threadId]);
+    };
 
     useEffect(() => {
         fetchThreadData();
-    }, [fetchThreadData]);
-
-    const increaseView = useCallback(async () => {
-        if (!thread || viewCounted) return;
-
-        try {
-            const views = thread.views + 1;
-            const updatedThread = await increaseThreadView(threadId, views);
-            setThread(prevThread => ({ ...prevThread, views: updatedThread.views }));
-            setViewCounted(true);
-        } catch (error) {
-            console.error("Error updating view count:", error);
-        }
-    }, [thread, threadId, viewCounted]);
-
-    useEffect(() => {
-        increaseView();
-    }, [increaseView]);
+    }, [threadId]);
 
     const handleReplySubmit = async (e) => {
         e.preventDefault();
+        if (!replyContent.trim()) {
+            setError("Reply content cannot be empty");
+            return;
+        }
+
         try {
             const reply = {
                 threadId,
-                content: replyContent
+                content: replyContent.trim()
             };
             const newReply = await createReply(reply, token);
+
             if (newReply.status === "success") {
                 setReplies(prevReplies => [...prevReplies, newReply.data]);
-                setRepliesCount(prevCount => prevCount + 1);
                 setReplyContent("");
                 setShowReplyForm(false);
+                setThread(prevThread => ({
+                    ...prevThread,
+                    replies: (prevThread.replies || 0) + 1
+                }));
+                setError(null);
             }
         } catch (err) {
             setError("Failed to submit reply: " + err.message);
@@ -122,7 +120,7 @@ const Threads = () => {
                         <span className="mx-2">•</span>
                         <span>{thread.views} views</span>
                         <span className="mx-2">•</span>
-                        <span>{repliesCount} replies</span>
+                        <span>{thread.replies} replies</span>
                     </div>
                 </div>
             </div>
@@ -138,7 +136,10 @@ const Threads = () => {
                 {/* Reply Button */}
                 <div className="mb-8">
                     <button
-                        onClick={() => setShowReplyForm(!showReplyForm)}
+                        onClick={() => {
+                            setShowReplyForm(!showReplyForm);
+                            setError(null); // Reset error state when toggling reply form
+                        }}
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                     >
                         {showReplyForm ? "Cancel Reply" : "Reply to Thread"}
@@ -159,7 +160,6 @@ const Threads = () => {
                             type="submit"
                             className={`bg-green-500 text-white font-bold py-2 px-4 rounded ${token ? "cursor-pointer hover:bg-green-600" : "opacity-75 cursor-not-allowed"}`}
                             disabled={!token}
-                            aria-disabled={!token}
                         >
                             Submit Reply
                         </button>
@@ -172,11 +172,11 @@ const Threads = () => {
                     {replies.length > 0 ? (
                         replies.map(reply => (
                             <div key={reply._id} className="bg-gray-800 rounded-lg p-6">
-                                <p className="text-gray-400 mb-4">{reply.content}</p>
+                                <p className="text-gray-200 mb-4">{reply.content}</p>
                                 <div className="text-sm text-gray-500">
-                                    <span>Upvotes: {reply.upvotes}</span>
-                                    <span className="mx-2">•</span>
-                                    <span>{new Date(reply.timestamp).toLocaleString()}</span>
+                                    {/* <span>Upvotes: {reply.upvotes}</span> */}
+                                    {/* <span className="mx-2">•</span> */}
+                                    <span>{new Date(reply.date).toLocaleString()}</span>
                                 </div>
                             </div>
                         ))
