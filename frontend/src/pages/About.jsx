@@ -1,4 +1,5 @@
 import React from 'react';
+import indieGamies from "../assets/images/indieGamies.png";
 
 const About = () => {
     return (
@@ -12,7 +13,8 @@ const About = () => {
                 </p>
                 <div className="flex justify-center mt-8">
                     <img
-                        src="https://via.placeholder.com/400x200"
+                        src={indieGamies}
+                        style={{ width: "400px" }}
                         alt="IndieGamie"
                         className="rounded-lg shadow-lg"
                     />
