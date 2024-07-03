@@ -47,13 +47,11 @@ export async function createThread(thread, token){
     }
 }
 
-// function for increasing thread view
-export async function increaseThreadView(threadId, views){
+//Function to update thread view
+export async function updateThread(threadId, newThread){
     try{
-        const body={
-            views 
-        }
-        const result = await axios.put(createUrl(`threads/thread/${threadId}`),body)
+        const body = newThread;
+        const result = await axios.put(createUrl(`threads/thread/${threadId}`), body)
         return result.data
     }catch(error){
         console.log(error)
