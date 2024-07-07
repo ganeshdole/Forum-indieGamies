@@ -1,11 +1,10 @@
-const mg = require('../config/mailgun');
-const otpGenerator = require('../utils/otpGenerator');
+const {otpGenerator} = require('../utils/utils');
 
 const otpStorage = {}; 
 
-exports.requestOtp = async (req, res) => {
+const requestOtp = async (req, res) => {
     const { email } = req.body;
-    const otp = otpGenerator.generate();
+    const otp = otpGenerator();
 
     otpStorage[email] = otp;
 
@@ -17,14 +16,16 @@ exports.requestOtp = async (req, res) => {
     };
 
     try {
-        await mg.messages().send(data);
-        res.status(200).send('OTP sent to your email');
+        // await mg.messages().send(data);
+        res.send('OTP sent to your email ' + otp);
     } catch (error) {
-        res.status(500).send('Error sending OTP email');
+        console.log(error)
+        res.send('Error sending OTP email');
     }
 };
 
-exports.verifyOtp = (req, res) => {
+const verifyOtp = (req, res) => {
+    console.log(req.body)
     const { email, otp } = req.body;
 
     if (otpStorage[email] === otp) {
@@ -34,3 +35,9 @@ exports.verifyOtp = (req, res) => {
         res.status(400).send('Invalid OTP');
     }
 };
+
+
+module.exports = {
+    requestOtp,
+    verifyOtp
+}
