@@ -1,69 +1,10 @@
 const userModel = require('../db/models/userModel');
 const { createSuccess, createError } = require('../utils/utils');
+
+
+
 const bcryptJs = require('bcryptjs');
-const jwt  = require('jsonwebtoken')
-// Register User
-const registerUser = async (req, res) => {
-    try {
-       
-        const { username, email, password } = req.body;
-        let user = await userModel.findOne({ username });
 
-        if (user) {
-            return res.json(createError('Username already exists'));
-        }
-
-        user = await userModel.findOne({ email });
-        
-        if (user) {
-            return res.json(createError('Email already exists'));
-        }
-
-        const salt = await bcryptJs.genSalt(10);
-        const encryptedPassword = await bcryptJs.hash(password, salt);
-
-        const newUser = new userModel({
-            username,
-            email,
-            password: encryptedPassword
-        });
-
-        const savedUser = await newUser.save();
-        res.status(201).json(createSuccess(savedUser));
-    } catch (error) {
-        console.error('Error creating user:', error.message);
-        res.status(500).json(createError('Error creating user', error.message));
-    }
-};
-
-// Sign-in user 
-const signinUser = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        console.log(req.body)
-        const user = await userModel.findOne({ email });
-
-        if (!user) {
-            console.log('User not found');
-            return res.json(createError('User not found'));
-        }
-
-        const isMatch = await bcryptJs.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json(createError('Invalid Password'));
-        }
-
-        const token = jwt.sign(
-            { id: user._id, username: user.username, email: user.email },
-            process.env.JWT_SECRETE
-        );
-
-        res.status(200).json(createSuccess({ message: 'User signed in successfully', token }));
-    } catch (error) {
-        console.log('Error in signing-in user', error);
-        return res.status(500).json(createError('Signing in user', error.message));
-    }
-};
 
 // Get user by ID
 const getUserById = async (req, res) => {
@@ -121,4 +62,4 @@ const deleteUserById = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, signinUser, getUserById, updateUserById, deleteUserById };
+module.exports = { getUserById, updateUserById, deleteUserById };
