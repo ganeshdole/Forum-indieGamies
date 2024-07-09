@@ -12,13 +12,15 @@ const mg = mailgun.client({username: 'api', key: process.env.MAILGUN_API_KEY });
 
 
 const requestOtp = async (req, res) => {
+    console.log(req.body)
     const { email } = req.body;
     const otp = otpGenerator();
-
+    console.log(otp);
     otpStorage[email] = otp;
 
     const data = {
         to: email,
+        from: 'IndieGamies <no-reply@indiegamies.com>',
         subject: "Your OTP Code",
         html: `
             <html>
@@ -51,12 +53,11 @@ const requestOtp = async (req, res) => {
 const verifyOtp = (req, res) => {
     console.log(req.body)
     const { email, otp } = req.body;
-
     if (otpStorage[email] === otp) {
         delete otpStorage[email];
-        res.status(200).send('OTP verified successfully');
+        res.send(createSuccess('OTP verified successfully'));
     } else {
-        res.status(400).send('Invalid OTP');
+        res.send(createError('Invalid OTP'));
     }
 };
 
