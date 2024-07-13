@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-
+const url = process.env.DB_URL;
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.DB_URL, {
+        const conn = await mongoose.connect(url, {
             serverSelectionTimeoutMS: 5000,
             maxPoolSize: 10, // Maintain up to 10 socket connections
             socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
