@@ -10,6 +10,7 @@ const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const connectDB = require("./db/db")
 
+const authRouter = require("./routes/auth")
 const userRouter = require("./routes/user");
 const threadsRouter = require('./routes/threads');
 const categoriesRouter = require('./routes/categories');
@@ -46,8 +47,10 @@ app.use((req, res, next)=>{
   console.log(req.url,"\n")
   next()
 })
+
 app.use(express.static('public'))
 app.use(authMiddleware)
+app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/categories', categoriesRouter)
 app.use('/threads', threadsRouter);
